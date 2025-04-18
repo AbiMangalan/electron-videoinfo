@@ -1,17 +1,18 @@
-:root {
-  color-scheme: light dark;
+.file-input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #333;
-    color: white;
-  }
+#selected-file {
+    margin-left: 10px;
+    font-style: italic;
 }
 
-@media (prefers-color-scheme: light) {
-  body {
-    background: #ddd;
-    color: black;
-  }
+#browse-button {
+    margin-left: 10px;
+}
+
+#result {
+    margin-top: 20px;
 }

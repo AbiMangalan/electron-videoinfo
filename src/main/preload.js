@@ -1,14 +1,20 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
-contextBridge.exposeInMainWorld('versions', {
-    node: () => process.versions.node,
-    chrome: () => process.versions.chrome,
-    electron: () => process.versions.electron,
-    ping: () => ipcRenderer.invoke('ping'),
-    // we can also expose variables, not just functions
-});
-
-contextBridge.exposeInMainWorld('darkMode', {
-    toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
-    system: () => ipcRenderer.invoke('dark-mode:system'),
+contextBridge.exposeInMainWorld('videoInfo', {
+    openFileDialog: () => {
+        ipcRenderer.send('open:file-dialog');
+    },
+    onFileSelected: (callback) => {
+        ipcRenderer.on('file:selected', (event, filePath) => {
+            callback(filePath);
+        });
+    },
+    processVideo: (filePath) => {
+        ipcRenderer.send('process:video', filePath);
+    },
+    receiveVideoMetadata: (callback) => {
+        ipcRenderer.on('video:metadata', (event, duration) => {
+            callback(duration);
+        });
+    }
 });

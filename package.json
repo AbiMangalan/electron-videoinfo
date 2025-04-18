@@ -1,5 +1,5 @@
 {
-  "name": "my-electron-app",
+  "name": "electron-videoinfo",
   "version": "0.0.1",
   "description": "electron tutorial app for self learning",
   "main": "src/main/main.js",
@@ -46,5 +46,8 @@
       "owner": "AbiMangalan",
       "repo": "electron"
     }
-  ]
+  ],
+  "dependencies": {
+    "fluent-ffmpeg": "^2.1.3"
+  }
 }

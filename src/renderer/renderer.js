@@ -1,17 +1,28 @@
-const information = document.getElementById('info');
-information.innerText = `This app is using Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), and Electron (v${versions.electron()})`;
-const func = async () => {
-    const response = await window.versions.ping();
-    console.log(response);
-}
-func();
+let selectedFilePath = '';
 
-document.getElementById('toggle-dark-mode').addEventListener('click', async () => {
-    const isDarkMode = await window.darkMode.toggle();
-    document.getElementById('theme-source').innerHTML = isDarkMode ? 'Dark' : 'Light';
+// Handle browse button click
+document.getElementById('browse-button').addEventListener('click', () => {
+    window.videoInfo.openFileDialog();
 });
 
-document.getElementById('reset-to-system').addEventListener('click', async () => {
-    await window.darkMode.system();
-    document.getElementById('theme-source').innerHTML = 'System';
+// Handle when a file is selected from the dialog
+window.videoInfo.onFileSelected((filePath) => {
+    selectedFilePath = filePath;
+    document.getElementById('selected-file').textContent = filePath.split(/[\\/]/).pop(); // Show just the filename
+    document.getElementById('file-path').value = filePath;
+    document.getElementById('submit-button').disabled = false;
+});
+
+// Handle form submission
+document.getElementById('video-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (selectedFilePath) {
+        document.getElementById('result').textContent = 'Processing...';
+        window.videoInfo.processVideo(selectedFilePath);
+    }
+});
+
+// Handle receiving video metadata
+window.videoInfo.receiveVideoMetadata((duration) => {
+    document.getElementById('result').textContent = `Video is ${duration} seconds long.`;
 });
