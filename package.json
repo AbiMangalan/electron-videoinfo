@@ -1,0 +1,50 @@
+{
+  "name": "my-electron-app",
+  "version": "0.0.1",
+  "description": "electron tutorial app for self learning",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder",
+    "dist": "electron-builder --win --x64",
+    "publish": "electron-builder --publish always"
+  },
+  "author": "Abi Mangalan",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.abimangalan.myelectronapp",
+    "productName": "MyElectronApp",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icons/icon.ico",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "MyElectronApp"
+    }
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "owner": "AbiMangalan",
+      "repo": "electron"
+    }
+  ]
+}
